@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Builder — Modern Sidebar Style</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#1a1a2e;--red:#e94560;--mid:#16213e;--white:#ffffff;
+  --body:#2d2d2d;--blue:#185FA5;--muted:#aaaaaa;--light:#f8f9fa;
+  --border:#e0e0e0;--shadow:0 4px 24px rgba(0,0,0,0.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#333;min-height:100vh}
+
+/* ── NAV ── */
+nav{background:var(--dark);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-logo{width:32px;height:32px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:#fff}
+.nav-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:#fff}
+.nav-title span{color:var(--red)}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all 0.2s}
+.btn-ghost{background:transparent;color:#aaa;border:1px solid #444}
+.btn-ghost:hover{background:#ffffff15;color:#fff}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover{background:#c73550;transform:translateY(-1px)}
+.btn-download{background:linear-gradient(135deg,var(--red),#c73550);color:#fff;display:flex;align-items:center;gap:6px}
+.btn-download:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(233,69,96,0.4)}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--dark) 0%,#0f3460 100%);padding:48px 32px 40px;text-align:center}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;color:#fff;margin-bottom:10px}
+.hero h1 span{color:var(--red)}
+.hero p{color:#aaa;font-size:16px;max-width:480px;margin:0 auto 24px}
+.hero-steps{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.hero-step{display:flex;align-items:center;gap:8px;color:#ccc;font-size:13px}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+/* ── MAIN LAYOUT ── */
+.main{max-width:1300px;margin:0 auto;padding:24px 20px;display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start}
+
+/* ── FORM PANEL ── */
+.form-panel{background:#fff;border-radius:16px;box-shadow:var(--shadow);overflow:hidden;position:sticky;top:72px;max-height:calc(100vh - 88px);display:flex;flex-direction:column}
+.tab-bar{display:flex;background:#f8f9fa;border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0}
+.tab{padding:12px 16px;font-size:12px;font-weight:500;cursor:pointer;color:#888;border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.2s}
+.tab:hover{color:#333}
+.tab.active{color:var(--red);border-bottom-color:var(--red);background:#fff}
+.form-body{overflow-y:auto;flex:1}
+.form-section{padding:16px 20px;border-bottom:1px solid #f0f0f0}
+.form-section:last-child{border-bottom:none}
+.section-label{font-size:11px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.section-label::after{content:'';flex:1;height:1px;background:#f0f0f0}
+.field{margin-bottom:10px}
+.field label{display:block;font-size:12px;font-weight:500;color:#555;margin-bottom:5px}
+.field input,.field textarea,.field select{width:100%;padding:9px 12px;font-size:13px;border:1.5px solid #e8e8e8;border-radius:8px;font-family:'Inter',sans-serif;color:#333;background:#fafafa;transition:all 0.2s;outline:none}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(233,69,96,0.08)}
+.field textarea{resize:vertical;min-height:72px;line-height:1.6}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.add-btn{width:100%;padding:9px;font-size:12px;font-weight:500;border:1.5px dashed #ddd;border-radius:8px;background:transparent;color:#888;cursor:pointer;margin-top:6px;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:5px}
+.add-btn:hover{border-color:var(--red);color:var(--red);background:#fff5f7}
+.exp-card{background:#fafafa;border:1px solid #eee;border-radius:10px;padding:12px;margin-bottom:10px;position:relative}
+.exp-card .rm{position:absolute;top:10px;right:10px;background:none;border:none;color:#ccc;cursor:pointer;font-size:18px;line-height:1;transition:color 0.2s}
+.exp-card .rm:hover{color:var(--red)}
+.skill-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.skill-row input{flex:1}
+.skill-row select{width:70px;padding:9px 6px}
+.skill-row .rm{background:none;border:none;color:#ccc;cursor:pointer;font-size:18px;padding:2px 4px}
+.skill-row .rm:hover{color:var(--red)}
+.form-footer{padding:16px 20px;border-top:1px solid #f0f0f0;flex-shrink:0}
+.dl-btn{width:100%;padding:13px;font-size:14px;font-weight:600;background:linear-gradient(135deg,var(--red),#c73550);color:#fff;border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s}
+.dl-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(233,69,96,0.4)}
+.dl-hint{font-size:11px;color:#aaa;text-align:center;margin-top:6px}
+
+/* ── PREVIEW PANEL ── */
+.preview-wrapper{background:#fff;border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.preview-header{background:#f8f9fa;border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.preview-header span{font-size:12px;font-weight:500;color:#888;display:flex;align-items:center;gap:6px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.preview-scale-wrap{padding:20px;background:#e8eaed;min-height:600px;display:flex;justify-content:center;align-items:flex-start}
+.preview-page{width:100%;max-width:680px;background:#fff;box-shadow:0 8px 40px rgba(0,0,0,0.18);border-radius:4px;overflow:hidden;transform-origin:top center;font-family:Arial,Helvetica,sans-serif}
+
+/* ── RESUME LAYOUT ── */
+.r-wrap{display:flex;min-height:900px}
+.r-sb{width:220px;min-width:220px;background:#1a1a2e;padding:20px 16px;color:#aaa}
+.r-body{flex:1;background:#fff;padding:20px 22px}
+
+/* sidebar */
+.r-avatar{width:60px;height:60px;border-radius:50%;background:#e94560;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700;margin:0 auto 10px}
+.r-sb-name{color:#fff;font-size:13px;font-weight:700;text-align:center;margin-bottom:3px;line-height:1.3}
+.r-sb-role{color:#e94560;font-size:9px;text-align:center;margin-bottom:10px;line-height:1.4}
+.r-sb-line{height:1px;background:#e94560;margin:8px 0;opacity:0.6}
+.r-sb-sec{font-size:8px;font-weight:700;color:#e94560;text-transform:uppercase;letter-spacing:0.8px;background:#16213e;padding:4px 6px;margin:8px -4px 6px;border-radius:3px}
+.r-sb-txt{font-size:9px;color:#aaa;margin-bottom:4px;line-height:1.5}
+.r-sb-txt b{color:#fff;display:block}
+.dot-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.dot-label{font-size:8.5px;color:#ccc}
+.dots{display:flex;gap:3px}
+.dot{width:7px;height:7px;border-radius:50%}
+.dot.on{background:#e94560}
+.dot.off{background:#2e2e4e}
+.tools-list{font-size:8.5px;color:#aaa;line-height:1.7}
+
+/* right body */
+.r-head-name{font-size:20px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
+.r-head-role{font-size:10px;color:#e94560;font-weight:600;margin-bottom:12px;letter-spacing:0.3px}
+.r-sec{font-size:9px;font-weight:700;color:#1a1a2e;text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid #e94560;padding-bottom:3px;margin:14px 0 8px}
+.r-summary{font-size:9.5px;color:#444;line-height:1.65}
+.r-job-header{margin-bottom:4px;overflow:hidden}
+.r-job-title{font-size:10.5px;font-weight:700;color:#1a1a2e;float:left}
+.r-job-period{font-size:9px;color:#e94560;float:right;font-style:italic;font-weight:600}
+.r-job-co{font-size:9px;color:#185FA5;clear:both;margin-bottom:4px;font-weight:500}
+.r-bullet{font-size:9px;color:#444;margin:3px 0 3px 12px;line-height:1.55;position:relative}
+.r-bullet::before{content:"•";color:#e94560;position:absolute;left:-10px;font-weight:700}
+.r-exp-block{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #f5f5f5}
+.r-exp-block:last-child{border-bottom:none}
+.r-ach-item{margin-bottom:8px}
+.r-ach-label{font-size:9.5px;font-weight:700;color:#e94560;margin-bottom:2px}
+.r-ach-label::before{content:"✓  "}
+.r-ach-desc{font-size:9px;color:#555;line-height:1.55;padding-left:14px}
+.r-footer{border-top:1px solid #eee;margin-top:16px;padding-top:8px;text-align:center;font-size:8px;color:#aaa}
+
+/* ── TIPS STRIP ── */
+.tips{max-width:1300px;margin:0 auto 32px;padding:0 20px}
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.tip-card{background:#fff;border-radius:12px;padding:16px;border-left:3px solid var(--red);box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.tip-card h4{font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:5px}
+.tip-card p{font-size:12px;color:#666;line-height:1.6}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .main{grid-template-columns:1fr}
+  .form-panel{position:static;max-height:none}
+  .hero h1{font-size:26px}
+}
+@media print{
+  nav,.hero,.tips,.form-panel,.preview-header,.preview-scale-wrap > *:not(.preview-page){display:none!important}
+  .preview-page{box-shadow:none;border-radius:0;max-width:100%;transform:none!important}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">RB</div>
+    <div class="nav-title">Resume<span>Builder</span></div>
+  </div>
+  <div class="nav-actions">
+    <button class="btn btn-ghost" onclick="clearAll()">Clear all</button>
+    <button class="btn btn-download" onclick="downloadPDF()">⬇ Download PDF</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Build your resume in <span>minutes</span></h1>
+  <p>Fill in the form, watch it appear live on the right, then download your resume instantly.</p>
+  <div class="hero-steps">
+    <div class="hero-step"><div class="step-num">1</div> Fill your details</div>
+    <div class="hero-step"><div class="step-num">2</div> Preview live</div>
+    <div class="hero-step"><div class="step-num">3</div> Download & share</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- FORM -->
+  <div class="form-panel">
+    <div class="tab-bar">
+      <div class="tab active" onclick="showTab('personal')">👤 Personal</div>
+      <div class="tab" onclick="showTab('experience')">💼 Experience</div>
+      <div class="tab" onclick="showTab('skills')">⚡ Skills</div>
+      <div class="tab" onclick="showTab('other')">🎓 Other</div>
+    </div>
+
+    <div class="form-body">
+
+      <!-- PERSONAL -->
+      <div id="tab-personal">
+        <div class="form-section">
+          <div class="section-label">Personal info</div>
+          <div class="field"><label>Full Name *</label><input id="f-name" oninput="update()" placeholder="e.g. S Chrispin Raj"></div>
+          <div class="field"><label>Job Title *</label><input id="f-title" oninput="update()" placeholder="e.g. Product Support Engineer (L2)"></div>
+          <div class="field"><label>Years of Experience</label><input id="f-yoe" oninput="update()" placeholder="e.g. 8+"></div>
+          <div class="row2">
+            <div class="field"><label>Email *</label><input id="f-email" oninput="update()" placeholder="your@email.com"></div>
+            <div class="field"><label>Phone *</label><input id="f-phone" oninput="update()" placeholder="+91-XXXXXXXXXX"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Location</label><input id="f-location" oninput="update()" placeholder="Chennai, India"></div>
+            <div class="field"><label>LinkedIn</label><input id="f-linkedin" oninput="update()" placeholder="linkedin.com/in/..."></div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="section-label">Professional summary</div>
+          <div class="field"><textarea id="f-summary" oninput="update()" rows="4" placeholder="Write 3–4 lines about your total experience, key skills, and what makes you stand out..."></textarea></div>
+        </div>
+        <div class="form-section">
+          <div class="section-label">Key achievements</div>
+          <div class="field"><label>Achievement 1 — Title</label><input id="f-ach1t" oninput="update()" placeholder="e.g. Zero-Cost Automated Dashboard"></div>
+          <div class="field"><label>Achievement 1 — Description</label><textarea id="f-ach1d" oninput="update()" rows="2" placeholder="Describe what you built and the impact it had..."></textarea></div>
+          <div class="field"><label>Achievement 2 — Title</label><input id="f-ach2t" oninput="update()" placeholder="e.g. Process Improvement via Power BI"></div>
+          <div class="field"><label>Achievement 2 — Description</label><textarea id="f-ach2d" oninput="update()" rows="2" placeholder="Describe what you did and the result..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE -->
+      <div id="tab-experience" style="display:none">
+        <div class="form-section">
+          <div class="section-label">Work experience</div>
+          <div id="exp-list"></div>
+          <button class="add-btn" onclick="addExp()">+ Add position</button>
+        </div>
+      </div>
+
+      <!-- SKILLS -->
+      <div id="tab-skills" style="display:none">
+        <div class="form-section">
+          <div class="section-label">Skills & rating (1–5)</div>
+          <div id="skill-list"></div>
+          <button class="add-btn" onclick="addSkill()">+ Add skill</button>
+        </div>
+        <div class="form-section">
+          <div class="section-label">Tools & platforms</div>
+          <div class="field"><label>Comma-separated list</label><textarea id="f-tools" oninput="update()" rows="3" placeholder="e.g. ServiceNow, Jira, Maxim, SSH, Fiddler, Netlify"></textarea></div>
+        </div>
+      </div>
+
+      <!-- OTHER -->
+      <div id="tab-other" style="display:none">
+        <div class="form-section">
+          <div class="section-label">Education</div>
+          <div class="field"><label>Degree</label><input id="f-degree" oninput="update()" placeholder="e.g. B.Sc Computer Science"></div>
+          <div class="field"><label>University / College</label><input id="f-univ" oninput="update()" placeholder="e.g. VIT University"></div>
+          <div class="field"><label>Year</label><input id="f-eduyear" oninput="update()" placeholder="e.g. Jul 2014 – Sep 2017"></div>
+        </div>
+        <div class="form-section">
+          <div class="section-label">Certifications</div>
+          <div class="field"><label>Certification 1</label><input id="f-cert1" oninput="update()" placeholder="e.g. AWS Solutions Architect — Greens Technologies, 2020"></div>
+          <div class="field"><label>Certification 2</label><input id="f-cert2" oninput="update()" placeholder="e.g. DevOps Fundamentals — Greens Technologies, 2021"></div>
+          <div class="field"><label>Certification 3 (optional)</label><input id="f-cert3" oninput="update()" placeholder="e.g. Power BI Data Analyst"></div>
+        </div>
+        <div class="form-section">
+          <div class="section-label">Languages</div>
+          <div class="field"><input id="f-langs" oninput="update()" placeholder="e.g. English (Professional), Tamil (Native)"></div>
+        </div>
+      </div>
+
+    </div><!-- /form-body -->
+
+    <div class="form-footer">
+      <button class="dl-btn" onclick="downloadPDF()">⬇ Download Resume as PDF</button>
+      <div class="dl-hint">Generates a clean PDF instantly — no printing needed</div>
+    </div>
+  </div><!-- /form-panel -->
+
+  <!-- PREVIEW -->
+  <div class="preview-wrapper">
+    <div class="preview-header">
+      <span><div class="live-dot"></div> Live preview</span>
+      <button class="btn btn-primary" style="font-size:12px;padding:6px 14px" onclick="downloadPDF()">⬇ PDF ↗</button>
+    </div>
+    <div class="preview-scale-wrap">
+      <div class="preview-page" id="resume-preview">
+        <div class="r-wrap">
+          <div class="r-sb">
+            <div class="r-avatar" id="p-avatar">?</div>
+            <div class="r-sb-name" id="p-sb-name">Your Name</div>
+            <div class="r-sb-role" id="p-sb-role">Job Title</div>
+            <div class="r-sb-line"></div>
+            <div class="r-sb-sec">Contact</div>
+            <div id="p-contact" class="r-sb-txt">Fill in your details</div>
+            <div class="r-sb-sec">Skills</div>
+            <div id="p-skills-dots"><div style="font-size:8px;color:#555">Add skills →</div></div>
+            <div class="r-sb-sec">Tools</div>
+            <div id="p-tools" class="tools-list">—</div>
+            <div class="r-sb-sec">Education</div>
+            <div id="p-edu" class="r-sb-txt">—</div>
+            <div class="r-sb-sec">Certifications</div>
+            <div id="p-certs" class="r-sb-txt">—</div>
+            <div class="r-sb-sec">Languages</div>
+            <div id="p-langs" class="r-sb-txt">—</div>
+          </div>
+          <div class="r-body">
+            <div class="r-head-name" id="p-name">Your Name</div>
+            <div class="r-head-role" id="p-role">Job Title &nbsp;•&nbsp; 0 Years Experience</div>
+            <div class="r-sec">Professional Summary</div>
+            <div class="r-summary" id="p-summary" style="color:#bbb;font-style:italic">Your summary will appear here...</div>
+            <div id="p-achievements"></div>
+            <div class="r-sec">Professional Experience</div>
+            <div id="p-experience"><div class="r-summary" style="color:#bbb;font-style:italic">Add experience in the Experience tab →</div></div>
+            <div class="r-footer" id="p-footer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- TIPS -->
+<div class="tips">
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h4>💡 ATS Friendly</h4>
+      <p>Use keywords from the job description in your summary and bullet points to pass applicant tracking systems.</p>
+    </div>
+    <div class="tip-card">
+      <h4>📊 Quantify impact</h4>
+      <p>Use numbers wherever possible — "resolved 50+ tickets/week" beats "resolved many tickets".</p>
+    </div>
+    <div class="tip-card">
+      <h4>⚡ Action verbs</h4>
+      <p>Start each bullet with strong verbs: Monitored, Resolved, Implemented, Designed, Led, Automated.</p>
+    </div>
+    <div class="tip-card">
+      <h4>🎯 Tailor per role</h4>
+      <p>Download once, tweak the summary and top bullets for each job you apply to.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+let experiences = [];
+let skills = [];
+
+function showTab(tab){
+  ['personal','experience','skills','other'].forEach((t,i)=>{
+    document.getElementById('tab-'+t).style.display = t===tab?'block':'none';
+    document.querySelectorAll('.tab')[i].classList.toggle('active',t===tab);
+  });
+}
+
+function g(id){return (document.getElementById(id)||{}).value||'';}
+function initials(n){return n.split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2)||'?';}
+
+function addExp(){
+  const id=Date.now();
+  experiences.push({id,title:'',company:'',period:'',bullets:''});
+  renderExpList();
+}
+function removeExp(id){experiences=experiences.filter(e=>e.id!==id);renderExpList();}
+function renderExpList(){
+  document.getElementById('exp-list').innerHTML=experiences.map(e=>`
+    <div class="exp-card">
+      <button class="rm" onclick="removeExp(${e.id})">×</button>
+      <div class="field"><label>Job Title</label><input value="${e.title}" oninput="experiences.find(x=>x.id===${e.id}).title=this.value;update()" placeholder="e.g. Product Support Engineer – L2"></div>
+      <div class="row2">
+        <div class="field"><label>Company</label><input value="${e.company}" oninput="experiences.find(x=>x.id===${e.id}).company=this.value;update()" placeholder="Company / Client"></div>
+        <div class="field"><label>Period</label><input value="${e.period}" oninput="experiences.find(x=>x.id===${e.id}).period=this.value;update()" placeholder="Jan 2022 – Present"></div>
+      </div>
+      <div class="field"><label>Key responsibilities (one per line)</label>
+        <textarea rows="6" oninput="experiences.find(x=>x.id===${e.id}).bullets=this.value;update()" placeholder="Monitor and respond to automated alerts across environments&#10;Create incidents in ServiceNow and perform root cause analysis&#10;Investigate using Kibana, Grafana, Dynatrace, Datadog">${e.bullets}</textarea>
+      </div>
+    </div>`).join('');
+}
+
+function addSkill(){skills.push({id:Date.now(),name:'',level:4});renderSkillList();}
+function renderSkillList(){
+  document.getElementById('skill-list').innerHTML=skills.map(sk=>`
+    <div class="skill-row">
+      <input value="${sk.name}" oninput="skills.find(s=>s.id===${sk.id}).name=this.value;update()" placeholder="e.g. Grafana / Kibana">
+      <select onchange="skills.find(s=>s.id===${sk.id}).level=+this.value;update()">
+        ${[1,2,3,4,5].map(n=>`<option ${sk.level===n?'selected':''}>${n}</option>`).join('')}
+      </select>
+      <button class="rm" onclick="skills=skills.filter(s=>s.id!==${sk.id});renderSkillList();update()">×</button>
+    </div>`).join('');
+}
+
+function update(){
+  const name=g('f-name'), title=g('f-title'), yoe=g('f-yoe');
+  document.getElementById('p-avatar').textContent=initials(name);
+  document.getElementById('p-sb-name').textContent=name||'Your Name';
+  document.getElementById('p-sb-role').textContent=title||'Job Title';
+  document.getElementById('p-name').textContent=name||'Your Name';
+  document.getElementById('p-role').textContent=(title||'Job Title')+(yoe?' \u00a0•\u00a0 '+yoe+' Years Experience':'');
+
+  // contact
+  const cparts=[g('f-email'),g('f-phone'),g('f-location'),g('f-linkedin')].filter(Boolean);
+  document.getElementById('p-contact').innerHTML=cparts.map(t=>`<span style="display:block;margin-bottom:3px">&#9679; ${t}</span>`).join('')||'Fill in your details';
+
+  // summary
+  const sum=g('f-summary');
+  document.getElementById('p-summary').style.fontStyle=sum?'normal':'italic';
+  document.getElementById('p-summary').style.color=sum?'#444':'#bbb';
+  document.getElementById('p-summary').textContent=sum||'Your summary will appear here...';
+
+  // achievements
+  const a1t=g('f-ach1t'),a1d=g('f-ach1d'),a2t=g('f-ach2t'),a2d=g('f-ach2d');
+  let achHtml='';
+  if(a1t||a2t){
+    achHtml='<div class="r-sec">Key Achievements</div>';
+    if(a1t) achHtml+=`<div class="r-ach-item"><div class="r-ach-label">${a1t}</div><div class="r-ach-desc">${a1d}</div></div>`;
+    if(a2t) achHtml+=`<div class="r-ach-item"><div class="r-ach-label">${a2t}</div><div class="r-ach-desc">${a2d}</div></div>`;
+  }
+  document.getElementById('p-achievements').innerHTML=achHtml;
+
+  // experience
+  let expHtml='';
+  if(experiences.length){
+    experiences.forEach(exp=>{
+      const bullets=exp.bullets.split('\n').filter(b=>b.trim()).map(b=>b.replace(/^[•\-\*]\s*/,''));
+      expHtml+=`<div class="r-exp-block">
+        <div class="r-job-header"><span class="r-job-title">${exp.title}</span><span class="r-job-period">${exp.period}</span></div>
+        <div class="r-job-co">${exp.company}</div>
+        ${bullets.map(b=>`<div class="r-bullet">${b}</div>`).join('')}
+      </div>`;
+    });
+  } else {
+    expHtml='<div class="r-summary" style="color:#bbb;font-style:italic">Add experience in the Experience tab →</div>';
+  }
+  document.getElementById('p-experience').innerHTML=expHtml;
+
+  // skills dots
+  const dotsHtml=skills.length
+    ? skills.map(sk=>`<div class="dot-row"><span class="dot-label">${sk.name}</span><div class="dots">${[1,2,3,4,5].map(i=>`<div class="dot ${i<=sk.level?'on':'off'}"></div>`).join('')}</div></div>`).join('')
+    : '<div style="font-size:8px;color:#555">Add skills →</div>';
+  document.getElementById('p-skills-dots').innerHTML=dotsHtml;
+
+  // tools
+  const tools=g('f-tools').split(',').map(t=>t.trim()).filter(Boolean);
+  document.getElementById('p-tools').innerHTML=tools.length?tools.map(t=>`&#9679; ${t}`).join('<br>'):'—';
+
+  // education
+  const deg=g('f-degree'),uni=g('f-univ'),yr=g('f-eduyear');
+  document.getElementById('p-edu').innerHTML=deg?`<b>${deg}</b>${uni?'<br>'+uni:''}${yr?'<br><span style="color:#e94560">'+yr+'</span>':''}` :'—';
+
+  // certs
+  const certs=[g('f-cert1'),g('f-cert2'),g('f-cert3')].filter(Boolean);
+  document.getElementById('p-certs').innerHTML=certs.length?certs.map(c=>`<span style="display:block;margin-bottom:4px">&#9679; ${c}</span>`).join(''):'—';
+
+  // langs
+  document.getElementById('p-langs').textContent=g('f-langs')||'—';
+
+  // footer
+  const fparts=[g('f-email'),g('f-phone'),g('f-location')].filter(Boolean);
+  document.getElementById('p-footer').textContent=fparts.join('  •  ');
+}
+
+function clearAll(){
+  if(!confirm('Clear all fields?')) return;
+  ['f-name','f-title','f-yoe','f-email','f-phone','f-location','f-linkedin','f-summary',
+   'f-ach1t','f-ach1d','f-ach2t','f-ach2d','f-tools','f-degree','f-univ','f-eduyear',
+   'f-cert1','f-cert2','f-cert3','f-langs'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value='';
+  });
+  experiences=[]; skills=[];
+  renderExpList(); renderSkillList(); update();
+}
+
+function downloadPDF(){
+  const name = g('f-name') || 'Resume';
+  const filename = name.replace(/\s+/g,'_') + '_Resume.pdf';
+
+  const el = document.getElementById('resume-preview');
+
+  // Show loading state on buttons
+  document.querySelectorAll('.dl-btn, .btn-download, .btn-primary').forEach(b=>{
+    b._orig = b.textContent;
+    b.textContent = 'Generating PDF...';
+    b.disabled = true;
+  });
+
+  const opt = {
+    margin:       0,
+    filename:     filename,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(el).save().then(()=>{
+    document.querySelectorAll('.dl-btn, .btn-download, .btn-primary').forEach(b=>{
+      b.textContent = b._orig;
+      b.disabled = false;
+    });
+  });
+}
+
+// Pre-fill with Chrispin's data
+window.onload = function(){
+  document.getElementById('f-name').value='S Chrispin Raj';
+  document.getElementById('f-title').value='Product Support Engineer (L2)';
+  document.getElementById('f-yoe').value='8+';
+  document.getElementById('f-email').value='chrispinraj99@gmail.com';
+  document.getElementById('f-phone').value='+91-9092496189';
+  document.getElementById('f-location').value='Chennai, India';
+  document.getElementById('f-summary').value='Results-driven IT Support professional with 8+ years of experience in L1 and L2 support across cloud-hosted environments. Expert in application monitoring, incident management, root cause analysis, and 24x7x365 global operations. Proficient with Grafana, Kibana, Dynatrace, Datadog, New Relic, AppDynamics, AWS, and Kubernetes. Recognised for building a zero-cost automated reporting dashboard and Power BI process improvements that enhanced team efficiency and SLA tracking.';
+  document.getElementById('f-ach1t').value='Zero-Cost Automated Reporting Dashboard';
+  document.getElementById('f-ach1d').value='Independently designed and deployed a live health-check dashboard using GitHub and Netlify at zero infrastructure cost in under 5 minutes — eliminating manual reporting effort and improving stakeholder visibility.';
+  document.getElementById('f-ach2t').value='Process Improvement via Power BI';
+  document.getElementById('f-ach2d').value='Identified operational inefficiencies and built Power BI dashboards enabling data-driven decision-making, faster trend analysis, and improved SLA tracking across the team.';
+  document.getElementById('f-tools').value='ServiceNow, Jira, Maxim, SSH Client, Fiddler, Netlify, GitHub, Flexcab, RASS, CNSD, WAS, ONDB, Custdata';
+  document.getElementById('f-degree').value='Bachelor of Computer Science';
+  document.getElementById('f-univ').value='VIT University';
+  document.getElementById('f-eduyear').value='Jul 2014 – Sep 2017';
+  document.getElementById('f-cert1').value='AWS Solutions Architect — Greens Technologies, 2020';
+  document.getElementById('f-cert2').value='DevOps Fundamentals — Greens Technologies, 2021';
+  document.getElementById('f-langs').value='English (Professional Proficiency), Tamil (Native)';
+
+  // skills
+  [['Grafana / Kibana',5],['AWS Cloud',5],['ServiceNow / Jira',5],['Dynatrace / Datadog',4],
+   ['New Relic / AppDynamics',4],['Kubernetes',4],['Power BI',4],['Git / Bitbucket',3],
+   ['Linux / Windows',4],['Terraform',3]].forEach(([name,level])=>{
+    skills.push({id:Date.now()+Math.random(),name,level});
+  });
+  renderSkillList();
+
+  // experience
+  experiences.push({id:Date.now()+1,title:'Product Support Engineer – L2',company:'Wolters Kluwer',period:'Jan 2022 – Present',
+    bullets:`Monitor and respond to automated email alerts across multiple production and non-production environments
+Perform application health checks using Grafana; send daily health-check reports to stakeholders
+Create and manage incidents in ServiceNow; conduct root cause analysis (RCA) and post-mortem reviews
+Investigate alerts using Kibana, Dynatrace, Datadog, New Relic, AppDynamics, and SolarWinds via SSH
+Diagnose and resolve Kubernetes-level issues by inspecting pods, logs, and microservice components
+Operate within a global 24x7x365 team managing effective shift handoffs across time zones
+Lead incident management communications including stakeholder updates and process improvement initiatives
+Raise and manage Jira tickets; provide initial assessment, workarounds, and resolution for production issues
+Deliver proactive customer communication during service-affecting events via Major Incident Management (MIM)
+Resolve escalated client incidents in a timely and professional manner through effective investigation and triage`});
+  experiences.push({id:Date.now()+2,title:'L1 Support Analyst',company:'Tata Consultancy Services (Client: Telstra)',period:'Apr 2018 – Dec 2021',
+    bullets:`Received and managed customer disputes, enquiries, and exceptions via the Maxim ticketing tool within SLA targets
+Investigated and resolved pricing discrepancies; processed billing credits to ensure customer satisfaction
+Identified provisioning and implementation errors using Flexcab, RASS, CNSD, WAS, ONDB, and Custdata
+Managed client relationships ensuring all key performance metrics were met and exceeded per SLA
+Conducted weekly status calls with clients to provide transparent project updates and stakeholder engagement`});
+  renderExpList();
+  update();
+};
+</script>
+</body>
+</html>
