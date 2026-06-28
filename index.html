@@ -44,6 +44,7 @@ nav{background:var(--dark);padding:0 32px;display:flex;align-items:center;justif
 
 /* ── FORM PANEL ── */
 .form-panel{background:#fff;border-radius:16px;box-shadow:var(--shadow);overflow:hidden;position:sticky;top:72px;max-height:calc(100vh - 88px);display:flex;flex-direction:column}
+.ai-upload-banner{background:linear-gradient(135deg,#0f3460,#16213e);padding:16px 20px;border-bottom:1px solid #e9456033;flex-shrink:0}
 .tab-bar{display:flex;background:#f8f9fa;border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0}
 .tab{padding:12px 16px;font-size:12px;font-weight:500;cursor:pointer;color:#888;border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.2s}
 .tab:hover{color:#333}
@@ -61,6 +62,14 @@ nav{background:var(--dark);padding:0 32px;display:flex;align-items:center;justif
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .add-btn{width:100%;padding:9px;font-size:12px;font-weight:500;border:1.5px dashed #ddd;border-radius:8px;background:transparent;color:#888;cursor:pointer;margin-top:6px;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:5px}
 .add-btn:hover{border-color:var(--red);color:var(--red);background:#fff5f7}
+.photo-upload-box{border:2px dashed #e0e0e0;border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all 0.2s;background:#fafafa;position:relative}
+.photo-upload-box:hover{border-color:var(--red);background:#fff5f7}
+.photo-upload-box input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.photo-preview-wrap{display:flex;align-items:center;gap:14px;margin-top:10px}
+.photo-thumb{width:64px;height:64px;border-radius:50%;object-fit:cover;border:3px solid var(--red);display:none}
+.photo-thumb.show{display:block}
+.photo-remove{font-size:12px;color:var(--red);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px}
+.photo-remove:hover{background:#fff5f7}
 .exp-card{background:#fafafa;border:1px solid #eee;border-radius:10px;padding:12px;margin-bottom:10px;position:relative}
 .exp-card .rm{position:absolute;top:10px;right:10px;background:none;border:none;color:#ccc;cursor:pointer;font-size:18px;line-height:1;transition:color 0.2s}
 .exp-card .rm:hover{color:var(--red)}
@@ -72,6 +81,21 @@ nav{background:var(--dark);padding:0 32px;display:flex;align-items:center;justif
 .form-footer{padding:16px 20px;border-top:1px solid #f0f0f0;flex-shrink:0}
 .dl-btn{width:100%;padding:13px;font-size:14px;font-weight:600;background:linear-gradient(135deg,var(--red),#c73550);color:#fff;border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s}
 .dl-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(233,69,96,0.4)}
+.ai-upload-banner{background:linear-gradient(135deg,#0f3460,#16213e);border-radius:14px;padding:18px 20px;margin:0 0 0 0;border:1.5px solid #e9456022}
+.ai-upload-banner h3{color:#fff;font-size:14px;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.ai-upload-banner p{color:#aaa;font-size:12px;margin-bottom:12px;line-height:1.5}
+.ai-upload-zone{border:2px dashed #e94560aa;border-radius:10px;padding:18px;text-align:center;cursor:pointer;position:relative;transition:all 0.2s;background:#ffffff08}
+.ai-upload-zone:hover{background:#e9456015;border-color:#e94560}
+.ai-upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.ai-upload-zone .icon{font-size:26px;margin-bottom:6px}
+.ai-upload-zone .hint{font-size:12px;color:#ccc}
+.ai-upload-zone .hint b{color:#e94560}
+.ai-status{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:12px;display:none}
+.ai-status.loading{display:flex;align-items:center;gap:8px;background:#1a2a4a;color:#90caf9}
+.ai-status.success{display:flex;align-items:center;gap:8px;background:#0d2a1a;color:#6ee7b7}
+.ai-status.error{display:flex;align-items:center;gap:8px;background:#2a0d0d;color:#fca5a5}
+.spinner{width:16px;height:16px;border:2px solid #ffffff33;border-top-color:#90caf9;border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
 .dl-hint{font-size:11px;color:#aaa;text-align:center;margin-top:6px}
 
 /* ── PREVIEW PANEL ── */
@@ -89,7 +113,10 @@ nav{background:var(--dark);padding:0 32px;display:flex;align-items:center;justif
 .r-body{flex:1;background:#fff;padding:20px 22px}
 
 /* sidebar */
-.r-avatar{width:60px;height:60px;border-radius:50%;background:#e94560;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700;margin:0 auto 10px}
+.r-avatar{width:60px;height:60px;border-radius:50%;background:#e94560;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700;margin:0 auto 10px;overflow:hidden;position:relative}
+.r-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:none}
+.r-avatar img.has-photo{display:block}
+.r-avatar span{position:absolute}
 .r-sb-name{color:#fff;font-size:13px;font-weight:700;text-align:center;margin-bottom:3px;line-height:1.3}
 .r-sb-role{color:#e94560;font-size:9px;text-align:center;margin-bottom:10px;line-height:1.4}
 .r-sb-line{height:1px;background:#e94560;margin:8px 0;opacity:0.6}
@@ -173,6 +200,20 @@ nav{background:var(--dark);padding:0 32px;display:flex;align-items:center;justif
 
   <!-- FORM -->
   <div class="form-panel">
+    <!-- AI UPLOAD BANNER -->
+    <div class="ai-upload-banner">
+      <h3>🤖 Auto-fill from existing resume</h3>
+      <p>Upload your PDF resume and AI will extract all details and fill every field automatically.</p>
+      <div class="ai-upload-zone">
+        <input type="file" id="ai-resume-file" accept=".pdf,application/pdf" onchange="autoFillFromResume(this)">
+        <div class="icon">📄</div>
+        <div class="hint">Drop your <b>PDF resume</b> here or click to browse</div>
+      </div>
+      <div class="ai-status" id="ai-status">
+        <div class="spinner" id="ai-spinner"></div>
+        <span id="ai-status-text">Reading your resume...</span>
+      </div>
+    </div>
     <div class="tab-bar">
       <div class="tab active" onclick="showTab('personal')">👤 Personal</div>
       <div class="tab" onclick="showTab('experience')">💼 Experience</div>
@@ -186,7 +227,26 @@ nav{background:var(--dark);padding:0 32px;display:flex;align-items:center;justif
       <div id="tab-personal">
         <div class="form-section">
           <div class="section-label">Personal info</div>
-          <div class="field"><label>Full Name *</label><input id="f-name" oninput="update()" placeholder="e.g. S Chrispin Raj"></div>
+          <div class="form-section" style="padding-bottom:14px">
+            <div class="section-label">Profile photo</div>
+            <div class="photo-upload-box" id="photo-drop-zone">
+              <input type="file" id="f-photo" accept="image/*" onchange="handlePhoto(this)">
+              <div id="photo-upload-hint">
+                <div style="font-size:28px;margin-bottom:6px">📷</div>
+                <div style="font-size:13px;font-weight:500;color:#555">Click to upload your photo</div>
+                <div style="font-size:11px;color:#aaa;margin-top:4px">JPG, PNG — recommended 200×200px or square</div>
+              </div>
+            </div>
+            <div class="photo-preview-wrap" id="photo-preview-wrap" style="display:none">
+              <img id="photo-thumb" class="photo-thumb show" src="" alt="Profile photo">
+              <div>
+                <div style="font-size:13px;font-weight:500;color:#333">Photo uploaded ✓</div>
+                <div style="font-size:11px;color:#888;margin-bottom:6px">Showing in resume preview</div>
+                <button class="photo-remove" onclick="removePhoto()">✕ Remove photo</button>
+              </div>
+            </div>
+          </div>
+          <div class="field"><label>Full Name *</label><input id="f-name" oninput="update()" placeholder="e.g. John Smith"></div>
           <div class="field"><label>Job Title *</label><input id="f-title" oninput="update()" placeholder="e.g. Product Support Engineer (L2)"></div>
           <div class="field"><label>Years of Experience</label><input id="f-yoe" oninput="update()" placeholder="e.g. 8+"></div>
           <div class="row2">
@@ -238,13 +298,13 @@ nav{background:var(--dark);padding:0 32px;display:flex;align-items:center;justif
         <div class="form-section">
           <div class="section-label">Education</div>
           <div class="field"><label>Degree</label><input id="f-degree" oninput="update()" placeholder="e.g. B.Sc Computer Science"></div>
-          <div class="field"><label>University / College</label><input id="f-univ" oninput="update()" placeholder="e.g. VIT University"></div>
+          <div class="field"><label>University / College</label><input id="f-univ" oninput="update()" placeholder="e.g. Anna University"></div>
           <div class="field"><label>Year</label><input id="f-eduyear" oninput="update()" placeholder="e.g. Jul 2014 – Sep 2017"></div>
         </div>
         <div class="form-section">
           <div class="section-label">Certifications</div>
-          <div class="field"><label>Certification 1</label><input id="f-cert1" oninput="update()" placeholder="e.g. AWS Solutions Architect — Greens Technologies, 2020"></div>
-          <div class="field"><label>Certification 2</label><input id="f-cert2" oninput="update()" placeholder="e.g. DevOps Fundamentals — Greens Technologies, 2021"></div>
+          <div class="field"><label>Certification 1</label><input id="f-cert1" oninput="update()" placeholder="e.g. Cloud Architect Certification — Institution, 2024"></div>
+          <div class="field"><label>Certification 2</label><input id="f-cert2" oninput="update()" placeholder="e.g. DevOps Fundamentals — Institution, Year"></div>
           <div class="field"><label>Certification 3 (optional)</label><input id="f-cert3" oninput="update()" placeholder="e.g. Power BI Data Analyst"></div>
         </div>
         <div class="form-section">
@@ -271,7 +331,7 @@ nav{background:var(--dark);padding:0 32px;display:flex;align-items:center;justif
       <div class="preview-page" id="resume-preview">
         <div class="r-wrap">
           <div class="r-sb">
-            <div class="r-avatar" id="p-avatar">?</div>
+            <div class="r-avatar" id="p-avatar"><img id="p-avatar-img" src="" alt="Profile"><span id="p-avatar-initials">?</span></div>
             <div class="r-sb-name" id="p-sb-name">Your Name</div>
             <div class="r-sb-role" id="p-sb-role">Job Title</div>
             <div class="r-sb-line"></div>
@@ -338,6 +398,41 @@ function showTab(tab){
   });
 }
 
+let photoDataURL = null;
+
+function handlePhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    photoDataURL = e.target.result;
+    // update form preview
+    document.getElementById("photo-thumb").src = photoDataURL;
+    document.getElementById("photo-upload-hint").style.display = "none";
+    document.getElementById("photo-preview-wrap").style.display = "flex";
+    // update resume avatar
+    const img = document.getElementById("p-avatar-img");
+    img.src = photoDataURL;
+    img.classList.add("has-photo");
+    document.getElementById("p-avatar-initials").style.display = "none";
+    document.getElementById("p-avatar").style.background = "transparent";
+  };
+  reader.readAsDataURL(file);
+}
+
+function removePhoto() {
+  photoDataURL = null;
+  document.getElementById("f-photo").value = "";
+  document.getElementById("photo-thumb").src = "";
+  document.getElementById("photo-upload-hint").style.display = "block";
+  document.getElementById("photo-preview-wrap").style.display = "none";
+  const img = document.getElementById("p-avatar-img");
+  img.src = "";
+  img.classList.remove("has-photo");
+  document.getElementById("p-avatar-initials").style.display = "";
+  document.getElementById("p-avatar").style.background = "#e94560";
+}
+
 function g(id){return (document.getElementById(id)||{}).value||'';}
 function initials(n){return n.split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2)||'?';}
 
@@ -376,7 +471,7 @@ function renderSkillList(){
 
 function update(){
   const name=g('f-name'), title=g('f-title'), yoe=g('f-yoe');
-  document.getElementById('p-avatar').textContent=initials(name);
+  document.getElementById('p-avatar-initials').textContent=initials(name);
   document.getElementById('p-sb-name').textContent=name||'Your Name';
   document.getElementById('p-sb-role').textContent=title||'Job Title';
   document.getElementById('p-name').textContent=name||'Your Name';
@@ -453,6 +548,7 @@ function clearAll(){
     if(el) el.value='';
   });
   experiences=[]; skills=[];
+  removePhoto();
   renderExpList(); renderSkillList(); update();
 }
 
@@ -485,54 +581,149 @@ function downloadPDF(){
   });
 }
 
-// Pre-fill with Chrispin's data
-window.onload = function(){
-  document.getElementById('f-name').value='S Chrispin Raj';
-  document.getElementById('f-title').value='Product Support Engineer (L2)';
-  document.getElementById('f-yoe').value='8+';
-  document.getElementById('f-email').value='chrispinraj99@gmail.com';
-  document.getElementById('f-phone').value='+91-9092496189';
-  document.getElementById('f-location').value='Chennai, India';
-  document.getElementById('f-summary').value='Results-driven IT Support professional with 8+ years of experience in L1 and L2 support across cloud-hosted environments. Expert in application monitoring, incident management, root cause analysis, and 24x7x365 global operations. Proficient with Grafana, Kibana, Dynatrace, Datadog, New Relic, AppDynamics, AWS, and Kubernetes. Recognised for building a zero-cost automated reporting dashboard and Power BI process improvements that enhanced team efficiency and SLA tracking.';
-  document.getElementById('f-ach1t').value='Zero-Cost Automated Reporting Dashboard';
-  document.getElementById('f-ach1d').value='Independently designed and deployed a live health-check dashboard using GitHub and Netlify at zero infrastructure cost in under 5 minutes — eliminating manual reporting effort and improving stakeholder visibility.';
-  document.getElementById('f-ach2t').value='Process Improvement via Power BI';
-  document.getElementById('f-ach2d').value='Identified operational inefficiencies and built Power BI dashboards enabling data-driven decision-making, faster trend analysis, and improved SLA tracking across the team.';
-  document.getElementById('f-tools').value='ServiceNow, Jira, Maxim, SSH Client, Fiddler, Netlify, GitHub, Flexcab, RASS, CNSD, WAS, ONDB, Custdata';
-  document.getElementById('f-degree').value='Bachelor of Computer Science';
-  document.getElementById('f-univ').value='VIT University';
-  document.getElementById('f-eduyear').value='Jul 2014 – Sep 2017';
-  document.getElementById('f-cert1').value='AWS Solutions Architect — Greens Technologies, 2020';
-  document.getElementById('f-cert2').value='DevOps Fundamentals — Greens Technologies, 2021';
-  document.getElementById('f-langs').value='English (Professional Proficiency), Tamil (Native)';
 
-  // skills
-  [['Grafana / Kibana',5],['AWS Cloud',5],['ServiceNow / Jira',5],['Dynatrace / Datadog',4],
-   ['New Relic / AppDynamics',4],['Kubernetes',4],['Power BI',4],['Git / Bitbucket',3],
-   ['Linux / Windows',4],['Terraform',3]].forEach(([name,level])=>{
-    skills.push({id:Date.now()+Math.random(),name,level});
+function setAiStatus(type, msg) {
+  const el = document.getElementById("ai-status");
+  const sp = document.getElementById("ai-spinner");
+  const tx = document.getElementById("ai-status-text");
+  el.className = "ai-status " + type;
+  sp.style.display = type === "loading" ? "block" : "none";
+  tx.textContent = msg;
+}
+
+async function autoFillFromResume(input) {
+  const file = input.files[0];
+  if (!file) return;
+  setAiStatus("loading", "Reading your resume PDF...");
+
+  // Convert PDF to base64
+  const base64 = await new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(",")[1]);
+    r.onerror = () => rej(new Error("Failed to read file"));
+    r.readAsDataURL(file);
   });
-  renderSkillList();
 
-  // experience
-  experiences.push({id:Date.now()+1,title:'Product Support Engineer – L2',company:'Wolters Kluwer',period:'Jan 2022 – Present',
-    bullets:`Monitor and respond to automated email alerts across multiple production and non-production environments
-Perform application health checks using Grafana; send daily health-check reports to stakeholders
-Create and manage incidents in ServiceNow; conduct root cause analysis (RCA) and post-mortem reviews
-Investigate alerts using Kibana, Dynatrace, Datadog, New Relic, AppDynamics, and SolarWinds via SSH
-Diagnose and resolve Kubernetes-level issues by inspecting pods, logs, and microservice components
-Operate within a global 24x7x365 team managing effective shift handoffs across time zones
-Lead incident management communications including stakeholder updates and process improvement initiatives
-Raise and manage Jira tickets; provide initial assessment, workarounds, and resolution for production issues
-Deliver proactive customer communication during service-affecting events via Major Incident Management (MIM)
-Resolve escalated client incidents in a timely and professional manner through effective investigation and triage`});
-  experiences.push({id:Date.now()+2,title:'L1 Support Analyst',company:'Tata Consultancy Services (Client: Telstra)',period:'Apr 2018 – Dec 2021',
-    bullets:`Received and managed customer disputes, enquiries, and exceptions via the Maxim ticketing tool within SLA targets
-Investigated and resolved pricing discrepancies; processed billing credits to ensure customer satisfaction
-Identified provisioning and implementation errors using Flexcab, RASS, CNSD, WAS, ONDB, and Custdata
-Managed client relationships ensuring all key performance metrics were met and exceeded per SLA
-Conducted weekly status calls with clients to provide transparent project updates and stakeholder engagement`});
+  setAiStatus("loading", "AI is extracting your details... please wait");
+
+  const prompt = `You are a resume parser. Extract ALL information from this resume PDF and return ONLY a valid JSON object — no markdown, no backticks, no extra text.
+
+Return this exact structure:
+{
+  "name": "",
+  "title": "",
+  "yoe": "",
+  "email": "",
+  "phone": "",
+  "location": "",
+  "linkedin": "",
+  "summary": "",
+  "ach1title": "",
+  "ach1desc": "",
+  "ach2title": "",
+  "ach2desc": "",
+  "skills": [{"name": "", "level": 4}],
+  "tools": "",
+  "experience": [
+    {"title": "", "company": "", "period": "", "bullets": ""}
+  ],
+  "degree": "",
+  "university": "",
+  "eduyear": "",
+  "cert1": "",
+  "cert2": "",
+  "cert3": "",
+  "languages": ""
+}
+
+Rules:
+- skills: array of objects with name (string) and level (1-5 integer based on expertise mentioned)
+- tools: comma-separated string of tools and platforms
+- experience bullets: one responsibility per line separated by \n
+- yoe: just the number or range like "8+" 
+- Extract ALL work experience entries
+- Extract ALL skills mentioned
+- If a field has no data, use empty string ""`;
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 2000,
+        messages: [{
+          role: "user",
+          content: [
+            { type: "document", source: { type: "base64", media_type: "application/pdf", data: base64 } },
+            { type: "text", text: prompt }
+          ]
+        }]
+      })
+    });
+
+    if (!response.ok) throw new Error("API error: " + response.status);
+    const data = await response.json();
+    const raw = data.content.map(i => i.text || "").join("");
+    const clean = raw.replace(/```json|```/g, "").trim();
+    const parsed = JSON.parse(clean);
+
+    // Fill all fields
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ""; };
+    set("f-name", parsed.name);
+    set("f-title", parsed.title);
+    set("f-yoe", parsed.yoe);
+    set("f-email", parsed.email);
+    set("f-phone", parsed.phone);
+    set("f-location", parsed.location);
+    set("f-linkedin", parsed.linkedin);
+    set("f-summary", parsed.summary);
+    set("f-ach1t", parsed.ach1title);
+    set("f-ach1d", parsed.ach1desc);
+    set("f-ach2t", parsed.ach2title);
+    set("f-ach2d", parsed.ach2desc);
+    set("f-tools", parsed.tools);
+    set("f-degree", parsed.degree);
+    set("f-univ", parsed.university);
+    set("f-eduyear", parsed.eduyear);
+    set("f-cert1", parsed.cert1);
+    set("f-cert2", parsed.cert2);
+    set("f-cert3", parsed.cert3);
+    set("f-langs", parsed.languages);
+
+    // Fill skills
+    if (Array.isArray(parsed.skills) && parsed.skills.length) {
+      skills = parsed.skills.map(s => ({ id: Date.now() + Math.random(), name: s.name, level: s.level || 3 }));
+      renderSkillList();
+    }
+
+    // Fill experience
+    if (Array.isArray(parsed.experience) && parsed.experience.length) {
+      experiences = parsed.experience.map(e => ({
+        id: Date.now() + Math.random(),
+        title: e.title || "",
+        company: e.company || "",
+        period: e.period || "",
+        bullets: e.bullets || ""
+      }));
+      renderExpList();
+    }
+
+    update();
+    setAiStatus("success", "✓ All fields filled successfully! Review and edit as needed.");
+    // Switch to personal tab to show results
+    showTab("personal");
+
+  } catch (err) {
+    console.error(err);
+    setAiStatus("error", "✗ Could not parse resume. Please fill fields manually.");
+  }
+  input.value = "";
+}
+// Initialise empty form
+window.onload = function(){
   renderExpList();
+  renderSkillList();
   update();
 };
 </script>
